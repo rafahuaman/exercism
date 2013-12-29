@@ -6,7 +6,8 @@ class School
   end
   
   def add(name, grade)
-    @db[grade].empty? ? @db[grade] = [name] : @db[grade] << name
+    @db[grade] += [name]
+    #@db[grade].empty? ? @db[grade] = [name] : @db[grade] << name
   end
   
   def grade(grade)
@@ -14,8 +15,6 @@ class School
   end
   
   def sort
-    sorted = {}
-    @db.keys.sort.each { |key| sorted[key] = @db[key].sort }
-    sorted
+    Hash[@db.sort.map { |key,value| [key, value.sort] }]
   end
 end
