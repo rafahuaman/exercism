@@ -1,3 +1,4 @@
+#I used the ruby-prof Gem to profile my code
 #gem install ruby-prof
 require 'ruby-prof'
 
@@ -11,16 +12,22 @@ class Grains
   end
   
   def show
-    (1..64).to_a.each do |square_number|
-      puts "Square #{square_number}: #{square(square_number)}"
+    results = ""
+    (1..64).each do |square_number|
+      results  << "Square #{square_number}: #{square(square_number)}\n"
     end
-    puts "Total: #{total}"
+    results << "Total: #{total}\n"
+    puts results
   end
 end
 
+# Start profiling
 RubyProf.start
+
+# Calling the show in order to produce the output
 Grains.new.show
 
+#End profiling
 result = RubyProf.stop
 
 # Print a flat profile to text
