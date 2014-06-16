@@ -26,19 +26,22 @@ var Bob = function () {
 };
 
 var Message = function(text) {
-	this.text = text;	
-}
+	var that = {};
+	var text = text;
 
-Message.prototype.isYelled = function(){
-	return this.text  == this.text.toUpperCase() && this.text != this.text.toLowerCase() ;
-}
+	that.isYelled = function() {
+		return text  == text.toUpperCase() && text != text.toLowerCase() ;
+	}
 
-Message.prototype.isQuestion = function() {
-	return this.text.slice(-1) == "?";
-}
+	that.isQuestion = function() {
+		return text.slice(-1) == "?";
+	}
 
-Message.prototype.isSilence = function() {
-	return !this.text || !this.text.trim()
+	that.isSilence = function() {
+		return !text || !text.trim();
+	}
+
+	return that;
 }
 
 module.exports = Bob;
