@@ -1,10 +1,28 @@
-function Bob() {};
+var Bob = function () {
 
-Bob.prototype.responses = {
+	var that = {};
+
+	var responses = {
 		chill : "Woah, chill out!",
 		answer : "Sure.",
 		angry : "Fine. Be that way!",
 		whatever : "Whatever."
+	};
+
+	that.hey = function (message) {
+		var receivedMessage = new Message(message)
+		if (receivedMessage.isYelled()) {
+			return responses.chill;
+		} else if (receivedMessage.isQuestion()) {
+			return responses.answer;
+		} else if (receivedMessage.isSilence()){
+			return responses.angry;
+		} else {
+			return responses.whatever;
+		};
+	};
+
+	return that;
 };
 
 var Message = function(text) {
@@ -22,18 +40,5 @@ Message.prototype.isQuestion = function() {
 Message.prototype.isSilence = function() {
 	return !this.text || !this.text.trim()
 }
-
-Bob.prototype.hey = function (message) {
-	var bobsMessage = new Message(message)
-	if (bobsMessage.isYelled()) {
-		return this.responses.chill;
-	} else if (bobsMessage.isQuestion()) {
-		return this.responses.answer;
-	} else if (bobsMessage.isSilence()){
-		return this.responses.angry;
-	} else {
-		return this.responses.whatever;
-	};
-};
 
 module.exports = Bob;
