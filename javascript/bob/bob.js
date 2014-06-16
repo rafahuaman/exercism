@@ -9,8 +9,9 @@ var Bob = function () {
 		whatever : "Whatever."
 	};
 
-	that.hey = function (message) {
-		var receivedMessage = new Message(message)
+	that.hey = function (msg) {
+		var receivedMessage = message(msg);
+		
 		if (receivedMessage.isYelled()) {
 			return responses.chill;
 		} else if (receivedMessage.isQuestion()) {
@@ -25,7 +26,7 @@ var Bob = function () {
 	return that;
 };
 
-var Message = function(text) {
+var message = function(text) {
 	var that = {};
 	var text = text;
 
