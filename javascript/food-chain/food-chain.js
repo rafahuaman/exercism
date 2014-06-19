@@ -1,36 +1,45 @@
-var song = (function() {
+var rhyme = function(spec) {
 	var that = {};
-	var rhymelyrics  = {
-		"fly" : "I don't know why she swallowed the fly. Perhaps she'll die.\n",
-		"spider" : "It wriggled and jiggled and tickled inside her.\n",
-		"bird" : "How absurd to swallow a bird!\n",
-		"cat" : "Imagine that, to swallow a cat!\n",
-		"dog" : "What a hog, to swallow a dog!\n",
-		"goat" : "Just opened her throat and swallowed a goat!\n",
-		"cow" : "I don't know how she swallowed a cow!\n",
-		"horse" : "She's dead, of course!\n"
+	that.get_animal = function() {
+		return spec.animal;
 	};
 
-	var animals = [
-		"fly",
-		"spider",
-		"bird",
-		"cat",
-		"dog",
-		"goat",
-		"cow",
-		"horse"];
+	that.get_line = function() {
+		return spec.line;
+	};
+	return that;
+};
+
+var song = (function() {
+	var that = {};
+
+	var animalRhymes = [
+		rhyme({animal: "fly", line: "I don't know why she swallowed the fly. Perhaps she'll die.\n"}),
+		rhyme({animal: "spider", line: "It wriggled and jiggled and tickled inside her.\n"}),
+		rhyme({animal: "bird", line: "How absurd to swallow a bird!\n"}),
+		rhyme({animal: "cat", line: "Imagine that, to swallow a cat!\n"}),
+		rhyme({animal: "dog", line: "What a hog, to swallow a dog!\n"}),
+		rhyme({animal: "goat", line: "Just opened her throat and swallowed a goat!\n"}),
+		rhyme({animal: "cow", line: "I don't know how she swallowed a cow!\n"}),
+		rhyme({animal: "horse", line: "She's dead, of course!\n"})
+	];
 
 	var getAnimal = function(verseNumber){
 		var animalIndex = verseNumber-1;
-		var animal = animals[animalIndex];
+		var animal = animalRhymes[animalIndex].get_animal();
 		return animal;
+	};
+
+	var getLine = function(verseNumber){
+		var animalIndex = verseNumber-1;
+		var line = animalRhymes[animalIndex].get_line();
+		return line;
 	};
 
 	var buildVerseOpening = function(verseNumber) {
 		var animal = getAnimal(verseNumber);
 		var startLyric =  "I know an old lady who swallowed a " + animal + ".\n";
-		var rhymeLyrics = rhymelyrics[animal];
+		var rhymeLyrics = getLine(verseNumber);
 		return startLyric + rhymeLyrics;
 	};
 
@@ -57,7 +66,7 @@ var song = (function() {
 	var buildVerseEnding = function(verseNumber){
 		var endLyric =""
 		if (verseNumber > 1) {
-			endLyric = rhymelyrics.fly;
+			endLyric = animalRhymes[0].get_line();
 		}
 		return endLyric;
 	};
